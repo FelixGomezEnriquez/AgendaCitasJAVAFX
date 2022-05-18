@@ -1,0 +1,10 @@
+----------------------------------------------------------------
+Wed May 18 07:27:38 CEST 2022D001 : [0] The Apache Software Foundation - Apache Derby - 10.15.2.0 - (1873585), [1] a816c00e-0180-d5a2-cf73-000006620658, [2] C:\Users\usuario\Documents\GitHub\AgendaCitas\BDAgendaCitas, [3] jdk.internal.loader.ClassLoaders$AppClassLoader@79698539, [4] file:/C:/Users/usuario/.m2/repository/org/apache/derby/derby/10.15.2.0/derby-10.15.2.0.jar
+java.vendor=Oracle Corporation
+java.runtime.version=11.0.11+9-LTS-194
+user.dir=C:\Users\usuario\Documents\GitHub\AgendaCitas
+os.name=Windows 10
+os.arch=amd64
+os.version=10.0
+derby.system.home=null
+C005 : [0] 
