@@ -46,15 +46,15 @@ public class App extends Application {
         stage.setScene(scene);
         stage.show();
         
-            //Obtener la fecha y hora actual
-            Date date = new Date();
+//            //Obtener la fecha y hora actual
+//            Date date = new Date();
  
             
-            Reunion r =new Reunion(0, "Reunion pruieba", "CAsa", "DORMIR COMER");
-            r.setFechaReunion(date);
-            em.getTransaction().begin();
-            em.persist(r);
-            em.getTransaction().commit();
+//            Reunion r =new Reunion(0, "Reunion pruieba", "CAsa", "DORMIR COMER");
+//            r.setFechaReunion(date);
+//            em.getTransaction().begin();
+//            em.persist(r);
+//            em.getTransaction().commit();
         
     }
 

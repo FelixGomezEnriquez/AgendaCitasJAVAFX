@@ -77,6 +77,7 @@
          <rowConstraints>
             <RowConstraints maxHeight="74.0" minHeight="10.0" prefHeight="59.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="68.0" minHeight="10.0" prefHeight="52.0" vgrow="SOMETIMES" />
+            <RowConstraints />
          </rowConstraints>
          <children>
             <TextField fx:id="textFieldNombre" prefHeight="81.0" prefWidth="518.0" GridPane.columnIndex="1" />
