@@ -1,6 +1,5 @@
 package es.felixgomezenriquez.agendacitas;
 
-import es.felixgomezenriquez.agendacitas.entities.Empresa;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -11,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -32,6 +32,11 @@ public class App extends Application {
     
         } catch (PersistenceException e) {
             Logger.getLogger(App.class.getName()).log(Level.WARNING, e.getMessage());
+            Alert alert=new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Atencion");
+            alert.setHeaderText("No se ha podido abrir la base de datos\n"
+            +"Compruebe que no se encuentra ya abierta la aplicación");
+            alert.showAndWait();
         }
         
         scene = new Scene(loadFXML("primary"), 640, 480);

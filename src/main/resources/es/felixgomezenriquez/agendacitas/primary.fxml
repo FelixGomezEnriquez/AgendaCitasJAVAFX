@@ -10,15 +10,15 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
    <center>
-      <TableView fx:id="tableViewReuniones" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="tableViewReuniones" prefHeight="333.0" prefWidth="600.0" BorderPane.alignment="CENTER">
         <columns>
           <TableColumn prefWidth="75.0" text="Nombre" />
           <TableColumn prefWidth="75.0" text="Lugar" />
             <TableColumn prefWidth="75.0" text="Fecha" />
             <TableColumn prefWidth="101.0" text="Temas a tratar " />
+            <TableColumn prefWidth="75.0" text="Empresa" />
         </columns>
          <opaqueInsets>
             <Insets />
