@@ -82,8 +82,6 @@ public class PrimaryController implements Initializable {
 
     }
     
-    
-    
     private void cargarTodasReuniones(){
     Query queryReunionFindAll =App.em.createNamedQuery("Reunion.findAll");
 
