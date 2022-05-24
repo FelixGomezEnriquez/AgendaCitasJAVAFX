@@ -1,11 +1,14 @@
 package es.felixgomezenriquez.agendacitas;
 
+import es.felixgomezenriquez.agendacitas.entities.Reunion;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.DriverManager;
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXMLLoader;
@@ -43,12 +46,15 @@ public class App extends Application {
         stage.setScene(scene);
         stage.show();
         
-        //Crea una empresa y la añade a la bd
-//        Empresa e = new Empresa(0, "DautoMotor");
-//        em.getTransaction().begin();
-//        em.persist(e);
-//        em.getTransaction().commit();
-        
+            //Obtener la fecha y hora actual
+            Date date = new Date();
+ 
+            
+            Reunion r =new Reunion(0, "Reunion pruieba", "CAsa", "DORMIR COMER");
+            r.setFechaReunion(date);
+            em.getTransaction().begin();
+            em.persist(r);
+            em.getTransaction().commit();
         
     }
 

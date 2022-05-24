@@ -6,26 +6,34 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.felixgomezenriquez.agendacitas.PrimaryController">
    <center>
       <TableView fx:id="tableViewReuniones" prefHeight="333.0" prefWidth="600.0" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn prefWidth="75.0" text="Nombre" />
-          <TableColumn prefWidth="75.0" text="Lugar" />
-            <TableColumn prefWidth="75.0" text="Fecha" />
-            <TableColumn prefWidth="101.0" text="Temas a tratar " />
-            <TableColumn prefWidth="75.0" text="Empresa" />
+          <TableColumn fx:id="columnNombre" prefWidth="98.0" text="Nombre" />
+          <TableColumn fx:id="columnLugar" prefWidth="68.0" text="Lugar" />
+            <TableColumn fx:id="columnFecha" prefWidth="97.0" text="Fecha" />
+            <TableColumn fx:id="columnTemas_A_Tratar" prefWidth="117.0" text="Temas a tratar " />
+            <TableColumn fx:id="columnEmpresa" prefWidth="75.0" text="Empresa" />
         </columns>
          <opaqueInsets>
-            <Insets />
+            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
          </opaqueInsets>
          <cursor>
             <Cursor fx:constant="DEFAULT" />
          </cursor>
+         <effect>
+            <InnerShadow />
+         </effect>
       </TableView>
    </center>
    <top>
@@ -60,4 +68,30 @@
          </children>
       </VBox>
    </top>
+   <bottom>
+      <GridPane BorderPane.alignment="BOTTOM_CENTER">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="538.0" minWidth="10.0" prefWidth="104.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="538.0" minWidth="10.0" prefWidth="496.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="74.0" minHeight="10.0" prefHeight="59.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="68.0" minHeight="10.0" prefHeight="52.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <TextField fx:id="textFieldNombre" prefHeight="81.0" prefWidth="518.0" GridPane.columnIndex="1" />
+            <TextField fx:id="textFieldLugar" prefHeight="71.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2" />
+            <Label prefHeight="18.0" prefWidth="70.0" text="Nombre:">
+               <GridPane.margin>
+                  <Insets left="30.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Lugar:" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="30.0" />
+               </GridPane.margin>
+            </Label>
+         </children>
+      </GridPane>
+   </bottom>
 </BorderPane>
