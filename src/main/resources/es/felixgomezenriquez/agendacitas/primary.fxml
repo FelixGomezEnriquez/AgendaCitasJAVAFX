@@ -51,7 +51,7 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" text="Borrar" />
+                  <Button mnemonicParsing="false" onAction="#OnActionButtonSuprimir" text="Borrar" />
                </children>
                <VBox.margin>
                   <Insets />
@@ -69,19 +69,19 @@
       </VBox>
    </top>
    <bottom>
-      <GridPane BorderPane.alignment="BOTTOM_CENTER">
+      <GridPane prefHeight="114.0" prefWidth="600.0" BorderPane.alignment="BOTTOM_CENTER">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="538.0" minWidth="10.0" prefWidth="104.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="538.0" minWidth="10.0" prefWidth="496.0" />
          </columnConstraints>
          <rowConstraints>
             <RowConstraints maxHeight="74.0" minHeight="10.0" prefHeight="59.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="68.0" minHeight="10.0" prefHeight="52.0" vgrow="SOMETIMES" />
-            <RowConstraints />
+            <RowConstraints maxHeight="74.0" minHeight="10.0" prefHeight="59.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="74.0" minHeight="10.0" prefHeight="59.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
             <TextField fx:id="textFieldNombre" prefHeight="81.0" prefWidth="518.0" GridPane.columnIndex="1" />
-            <TextField fx:id="textFieldLugar" prefHeight="71.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2" />
+            <TextField fx:id="textFieldLugar" prefHeight="67.0" prefWidth="496.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label prefHeight="18.0" prefWidth="70.0" text="Nombre:">
                <GridPane.margin>
                   <Insets left="30.0" />
@@ -92,6 +92,11 @@
                   <Insets left="30.0" />
                </GridPane.margin>
             </Label>
+            <Button fx:id="buttonGuardar" mnemonicParsing="false" onAction="#OnActionButtonGuardar" text="Guardar" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="30.0" />
+               </GridPane.margin>
+            </Button>
          </children>
       </GridPane>
    </bottom>

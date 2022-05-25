@@ -5,12 +5,18 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -36,6 +42,8 @@ public class PrimaryController implements Initializable {
     private TextField textFieldNombre;
     @FXML
     private TextField textFieldLugar;
+    @FXML
+    private Button buttonGuardar;
 
     
     
@@ -93,4 +101,61 @@ public class PrimaryController implements Initializable {
     private void switchToSecondary() throws IOException {
         App.setRoot("secondary");
     }
+
+    @FXML
+    private void OnActionButtonGuardar(ActionEvent event) {
+        
+        if (reunionSeleccionada != null){
+            reunionSeleccionada.setNombreReunion(textFieldNombre.getText());
+            reunionSeleccionada.setLugarReunion(textFieldLugar.getText());
+            App.em.getTransaction().begin();
+            App.em.merge(reunionSeleccionada);
+            App.em.getTransaction().commit();
+            
+            int numFilaSeleccionada = tableViewReuniones.getSelectionModel().getSelectedIndex();
+            tableViewReuniones.getItems().set(numFilaSeleccionada, reunionSeleccionada);
+            TablePosition pos = new TablePosition(tableViewReuniones, numFilaSeleccionada, null);
+            tableViewReuniones.getFocusModel().focus(pos);
+            tableViewReuniones.requestFocus();
+        }
+        
+    }
+
+    @FXML
+    private void OnActionButtonSuprimir(ActionEvent event) {
+        
+        if (reunionSeleccionada != null) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmar");
+            alert.setHeaderText("¿Desea suprimir el siguiente registro?");
+            alert.setContentText(reunionSeleccionada.getNombreReunion()+" "+reunionSeleccionada.getLugarReunion());
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                App.em.getTransaction().begin();
+                App.em.merge(reunionSeleccionada);
+                App.em.getTransaction().commit();
+                tableViewReuniones.getItems().remove(reunionSeleccionada);
+                tableViewReuniones.getFocusModel().focus(null);
+                tableViewReuniones.requestFocus();
+            } else {
+                int numFilaSeleccionada = tableViewReuniones.getSelectionModel().getSelectedIndex();
+                tableViewReuniones.getItems().set(numFilaSeleccionada, reunionSeleccionada);
+                TablePosition pos = new TablePosition(tableViewReuniones, numFilaSeleccionada, null);
+                tableViewReuniones.getFocusModel().focus(pos);
+                tableViewReuniones.requestFocus();
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Atención");
+            alert.setHeaderText("Debe seleccionar un registro");
+            alert.showAndWait();
+        }
+        
+        
+        
+    }
+    
+    
+    
+    
 }
