@@ -4,6 +4,7 @@ module es.felixgomezenriquez.agendacitas {
     requires java.instrument;
     requires java.persistence;
     requires java.sql;
+    requires java.base;
     
     opens es.felixgomezenriquez.agendacitas.entities;
 

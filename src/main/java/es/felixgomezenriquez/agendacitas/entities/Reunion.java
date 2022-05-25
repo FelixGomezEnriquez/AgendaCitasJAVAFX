@@ -5,44 +5,64 @@
  */
 package es.felixgomezenriquez.agendacitas.entities;
 
+import es.felixgomezenriquez.agendacitas.entities.Empresa;
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
- * @author usuario
+ * @author RaymanKLK
  */
-@javax.persistence.Entity
-@javax.persistence.Table(name = "REUNION")
-@javax.persistence.NamedQueries({
-    @javax.persistence.NamedQuery(name = "Reunion.findAll", query = "SELECT r FROM Reunion r"),
-    @javax.persistence.NamedQuery(name = "Reunion.findById", query = "SELECT r FROM Reunion r WHERE r.id = :id"),
-    @javax.persistence.NamedQuery(name = "Reunion.findByNombreReunion", query = "SELECT r FROM Reunion r WHERE r.nombreReunion = :nombreReunion"),
-    @javax.persistence.NamedQuery(name = "Reunion.findByLugarReunion", query = "SELECT r FROM Reunion r WHERE r.lugarReunion = :lugarReunion"),
-    @javax.persistence.NamedQuery(name = "Reunion.findByFechaReunion", query = "SELECT r FROM Reunion r WHERE r.fechaReunion = :fechaReunion"),
-    @javax.persistence.NamedQuery(name = "Reunion.findByTemasATratar", query = "SELECT r FROM Reunion r WHERE r.temasATratar = :temasATratar")})
+@Entity
+@Table(name = "REUNION")
+@NamedQueries({
+    @NamedQuery(name = "Reunion.findAll", query = "SELECT r FROM Reunion r"),
+    @NamedQuery(name = "Reunion.findById", query = "SELECT r FROM Reunion r WHERE r.id = :id"),
+    @NamedQuery(name = "Reunion.findByNombreReunion", query = "SELECT r FROM Reunion r WHERE r.nombreReunion = :nombreReunion"),
+    @NamedQuery(name = "Reunion.findByLugarReunion", query = "SELECT r FROM Reunion r WHERE r.lugarReunion = :lugarReunion"),
+    @NamedQuery(name = "Reunion.findByFechaReunion", query = "SELECT r FROM Reunion r WHERE r.fechaReunion = :fechaReunion"),
+    @NamedQuery(name = "Reunion.findByTemasATratar", query = "SELECT r FROM Reunion r WHERE r.temasATratar = :temasATratar"),
+    @NamedQuery(name = "Reunion.findByOrganizador", query = "SELECT r FROM Reunion r WHERE r.organizador = :organizador"),
+    @NamedQuery(name = "Reunion.findByFotoOrganizador", query = "SELECT r FROM Reunion r WHERE r.fotoOrganizador = :fotoOrganizador")})
 public class Reunion implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @javax.persistence.Id
-    @javax.persistence.GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
-    @javax.persistence.Basic(optional = false)
-    @javax.persistence.Column(name = "ID")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "ID")
     private Integer id;
-    @javax.persistence.Basic(optional = false)
-    @javax.persistence.Column(name = "NOMBRE_REUNION")
+    @Basic(optional = false)
+    @Column(name = "NOMBRE_REUNION")
     private String nombreReunion;
-    @javax.persistence.Basic(optional = false)
-    @javax.persistence.Column(name = "LUGAR_REUNION")
+    @Basic(optional = false)
+    @Column(name = "LUGAR_REUNION")
     private String lugarReunion;
-    @javax.persistence.Column(name = "FECHA_REUNION")
-    @javax.persistence.Temporal(javax.persistence.TemporalType.DATE)
+    @Column(name = "FECHA_REUNION")
+    @Temporal(TemporalType.DATE)
     private Date fechaReunion;
-    @javax.persistence.Basic(optional = false)
-    @javax.persistence.Column(name = "TEMAS_A_TRATAR")
+    @Basic(optional = false)
+    @Column(name = "TEMAS_A_TRATAR")
     private String temasATratar;
-    @javax.persistence.JoinColumn(name = "EMPRESA", referencedColumnName = "ID")
-    @javax.persistence.ManyToOne
+    @Column(name = "ORGANIZADOR")
+    private String organizador;
+    @Column(name = "FOTO_ORGANIZADOR")
+    private String fotoOrganizador;
+    @JoinColumn(name = "EMPRESA", referencedColumnName = "ID")
+    @ManyToOne
     private Empresa empresa;
 
     public Reunion() {
@@ -97,6 +117,22 @@ public class Reunion implements Serializable {
 
     public void setTemasATratar(String temasATratar) {
         this.temasATratar = temasATratar;
+    }
+
+    public String getOrganizador() {
+        return organizador;
+    }
+
+    public void setOrganizador(String organizador) {
+        this.organizador = organizador;
+    }
+
+    public String getFotoOrganizador() {
+        return fotoOrganizador;
+    }
+
+    public void setFotoOrganizador(String fotoOrganizador) {
+        this.fotoOrganizador = fotoOrganizador;
     }
 
     public Empresa getEmpresa() {

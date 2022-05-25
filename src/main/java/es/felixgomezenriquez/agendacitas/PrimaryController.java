@@ -7,6 +7,8 @@ import java.text.DateFormat;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -15,11 +17,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javax.persistence.Query;
 
 public class PrimaryController implements Initializable {
@@ -44,12 +49,21 @@ public class PrimaryController implements Initializable {
     private TextField textFieldLugar;
     @FXML
     private Button buttonGuardar;
+    @FXML
+    private TableColumn<Reunion, String> columnOrganizador;
+    @FXML
+    private TextField textFieldBuscar;
+    @FXML
+    private CheckBox checkBoxCoincide;
+    @FXML
+    private Button buttonBuscar;
 
     
     
     @Override
     public void initialize(URL url, ResourceBundle rb){
     
+        columnOrganizador.setCellValueFactory(new PropertyValueFactory<Reunion,String>("organizador"));
         columnNombre.setCellValueFactory(new PropertyValueFactory<Reunion,String>("nombreReunion"));
         columnLugar.setCellValueFactory(new PropertyValueFactory<Reunion,String>("lugarReunion"));
         columnFecha.setCellValueFactory(cellData-> {
@@ -86,6 +100,12 @@ public class PrimaryController implements Initializable {
                     }
                 });
         cargarTodasReuniones();
+        
+        textFieldBuscar.addEventHandler(KeyEvent.KEY_PRESSED,(event)->{
+                if(event.getCode()== KeyCode.ENTER){
+                    buttonBuscar.fire();
+                    event.consume();
+                }});
     
 
     }
@@ -132,7 +152,7 @@ public class PrimaryController implements Initializable {
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK) {
                 App.em.getTransaction().begin();
-                App.em.merge(reunionSeleccionada);
+                App.em.remove(reunionSeleccionada);
                 App.em.getTransaction().commit();
                 tableViewReuniones.getItems().remove(reunionSeleccionada);
                 tableViewReuniones.getFocusModel().focus(null);
@@ -154,8 +174,77 @@ public class PrimaryController implements Initializable {
         
         
     }
+
+    @FXML
+    private void onActionButtonNuevo(ActionEvent event) {
+        
+        try {
+            App.setRoot("secondary");
+            SecondaryController secondaryController = (SecondaryController)App.fxmlLoader.getController();
+            reunionSeleccionada = new Reunion();
+            secondaryController.setReunion(reunionSeleccionada, true);
+        } catch (IOException ex){
+            Logger.getLogger(PrimaryController.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+        }
+        
+    }   
+        
+    @FXML
+    private void onActionButtonEditar(ActionEvent event) {
+        if(reunionSeleccionada != null){
+            try {
+                App.setRoot("secondary");
+                SecondaryController secondaryController = (SecondaryController) App.fxmlLoader.getController();
+                secondaryController.setReunion(reunionSeleccionada, false);
+            } catch (IOException ex){
+                Logger.getLogger(PrimaryController.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Atención");
+            alert.setHeaderText("Debe seleccionar un registro");
+            alert.showAndWait();
+        }
+        
+    }
+
+    @FXML
+    private void onActionButtonBuscar(ActionEvent event) {
+        
+        if (!textFieldBuscar.getText().isEmpty()){
+            if(checkBoxCoincide.isSelected()){
+                Query queryReunionFindByOrganizador = App.em.createNamedQuery("Reunion.findByOrganizador");
+                queryReunionFindByOrganizador.setParameter("organizador", textFieldBuscar.getText());
+                List<Reunion> listReunion = queryReunionFindByOrganizador.getResultList();
+                tableViewReuniones.setItems(FXCollections.observableArrayList(listReunion));
+            } else {
+                String strQuery = "SELECT * FROM Reunion WHERE LOWER(organizador) LIKE ";
+                strQuery += "\'%" + textFieldBuscar.getText().toLowerCase() + "%\'";
+                Query queryReunionLikeOrganizador = App.em.createNativeQuery(strQuery, Reunion.class);
+
+                List<Reunion> listReunion = queryReunionLikeOrganizador.getResultList();
+                tableViewReuniones.setItems(FXCollections.observableArrayList(listReunion));
+
+                Logger.getLogger(this.getClass().getName()).log(Level.INFO, strQuery);
+            
+            }
+            
+        } else {
+            cargarTodasReuniones();
+        }
+        
+        
+        
+        
+        
+    }
     
     
-    
-    
+        
+        
 }
+    
+    
+    
+    
+
