@@ -35,6 +35,11 @@ import javafx.scene.image.ImageView;
 import javax.persistence.Query;
 
 public class SecondaryController {
+    //Declaracion de atributos de la clase SecondaryController
+    //Al igual que en el PrimaryController la mayoria de objetos 
+    //son declarados automaticamente por el scene builder
+    
+    //las variables que no tiene @FXML arriba son creadas por mi
     
     private static final String CARPETA_FOTOS = "Fotos";
     private final int TAM_NOMBRE = 20;
@@ -61,12 +66,15 @@ public class SecondaryController {
     @FXML
     private TextField textFieldOrganizador;
 
+    //Este metodo cambia a la pantalla principal
     private void switchToPrimary() throws IOException {
         App.setRoot("primary");
     }
     
     
-    
+    //Este metodo setea el atributo reunion de la clase con el pasado por parametros
+    //De un modo u otro dependiendo de si ya existe, que hace una busqueda o si no
+    //existe que directamente setea el recibido que es un nuevo objeto reunion
     public void setReunion(Reunion reunion,boolean nuevaReunion){
                
     App.em.getTransaction().begin();
@@ -80,7 +88,8 @@ public class SecondaryController {
     }
     
     
-    
+    //Este metodo se encarga de mostrar todos los datos de la reunion en sus respectivos campos
+    //Dependiendo del tipo de dato se hara de formas mas complejas 
     private void mostrarDatos(){
         textFieldNombre.setText(reunion.getNombreReunion());
         textFieldReunion.setText(reunion.getLugarReunion());
@@ -145,6 +154,9 @@ public class SecondaryController {
         }
        
  }
+    
+    //Este metodo del boton guardar, guarda en primer lugar los datos en el objeto reunion y despues 
+    //en la base de datos
     @FXML
     private void OnActionButtonGuardar(ActionEvent event) {
         
@@ -240,6 +252,8 @@ public class SecondaryController {
         }
     }
     
+    //Este metodo del boton cancelar, hace un rollback en la base de datos y cambia a la pantalla primaria ya que
+    //estas cancelando la creacion o edicion del registro
     @FXML
     private void OnActionButtonCancelar(ActionEvent event) throws IOException {
         App.em.getTransaction().rollback();
@@ -250,6 +264,7 @@ public class SecondaryController {
         }
     }
 
+    //Este metodo se encarga de elegir una foto y colocarla en el imageview, si no esta duplicada
     
      @FXML
     private void OnActionButtonExaminar(ActionEvent event) throws IOException {
@@ -277,6 +292,10 @@ public class SecondaryController {
             }
         }
     }
+    
+    
+    //Este metodo se encarga de borrar la foto que haya en el imageview, y cambia el valor
+    //de el campo foto del objeto reunion para cuando guardes, que no aparezca la foto
     
      @FXML
     private void onActionButtonSuprimirFoto(ActionEvent event) {

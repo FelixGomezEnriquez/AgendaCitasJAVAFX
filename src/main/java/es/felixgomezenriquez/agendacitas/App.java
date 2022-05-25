@@ -27,9 +27,12 @@ public class App extends Application {
     private static Scene scene;
     public static EntityManager em;
     public static FXMLLoader fxmlLoader;
+    
+    
     @Override
     public void start(Stage stage) throws IOException {
-        //Conexion base de datos
+        
+        //Conexion con la base de datos base de datos y un catch para los posibles errores
         try {
             EntityManagerFactory emf = Persistence.createEntityManagerFactory("AgendaCitasPU");
             em = emf.createEntityManager();
@@ -46,19 +49,10 @@ public class App extends Application {
         scene = new Scene(loadFXML("primary"), 700, 500);
         stage.setScene(scene);
         stage.show();
-        
-//            //Obtener la fecha y hora actual
-//            Date date = new Date();
- 
-            
-//            Reunion r =new Reunion(0, "Reunion pruieba", "CAsa", "DORMIR COMER");
-//            r.setFechaReunion(date);
-//            em.getTransaction().begin();
-//            em.persist(r);
-//            em.getTransaction().commit();
-        
+               
     }
 
+    
     @Override
     public void stop() throws Exception {
         try {
@@ -67,7 +61,7 @@ public class App extends Application {
         }
         
     }
-    
+    //metodo para cambiar de pantallas
     static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
     }
